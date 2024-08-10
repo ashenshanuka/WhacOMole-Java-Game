@@ -11,6 +11,11 @@ public class WhacAMole {
     JPanel textPanel= new JPanel();
     JPanel boardPanel= new JPanel();
 
+    JButton[] board = new JButton[9];
+
+    ImageIcon moleIcon;
+    ImageIcon plantIcon;
+
     WhacAMole() {
         frame.setVisible(true);
         frame.setSize(boardWidth,boardHeight);
@@ -30,6 +35,21 @@ public class WhacAMole {
 
         boardPanel.setLayout(new GridLayout(3,3));
         frame.add(boardPanel);
+        boardPanel.setBackground(Color.gray);
+
+        //plantIcon=new ImageIcon(getClass().getResource("./piranha.png"));
+       Image plantImg =new ImageIcon(getClass().getResource("./piranha.png")).getImage();
+       plantIcon = new ImageIcon(plantImg.getScaledInstance(150,150,java.awt.Image.SCALE_SMOOTH));
+
+       Image moleImg =new ImageIcon(getClass().getResource("./monty.png")).getImage();
+       moleIcon = new ImageIcon(moleImg.getScaledInstance(150,150,java.awt.Image.SCALE_SMOOTH));
+
+        for (int i=0;i<9;i++){
+            JButton tile = new JButton();
+            board[i] =tile;
+            boardPanel.add(tile);
+            tile.setIcon(moleIcon);;
+        }
 
 
     }
