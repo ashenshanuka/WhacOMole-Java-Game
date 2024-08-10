@@ -9,7 +9,7 @@ public class WhacAMole {
     JFrame frame=new JFrame("Mario : Whac a Mole");
     JLabel textLabel =new JLabel();
     JPanel textPanel= new JPanel();
-    JPanel boardJPanel= new JPanel();
+    JPanel boardPanel= new JPanel();
 
     WhacAMole() {
         frame.setVisible(true);
@@ -27,6 +27,9 @@ public class WhacAMole {
         textPanel.setLayout(new BorderLayout());
         textPanel.add(textLabel);
         frame.add(textPanel,BorderLayout.NORTH);
+
+        boardPanel.setLayout(new GridLayout(3,3));
+        frame.add(boardPanel);
 
 
     }
