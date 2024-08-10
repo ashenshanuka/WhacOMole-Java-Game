@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 import javax.swing.*;
 
  
@@ -15,9 +18,17 @@ public class WhacAMole {
 
     ImageIcon moleIcon;
     ImageIcon plantIcon;
+    
+    JButton currMoleTile;
+    JButton currPlantTile;
+
+    Random random = new Random();
+    Timer setMoleTimer;
+    Timer setPlantTimer;
+
 
     WhacAMole() {
-        frame.setVisible(true);
+        
         frame.setSize(boardWidth,boardHeight);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
@@ -50,6 +61,31 @@ public class WhacAMole {
             boardPanel.add(tile);
             tile.setIcon(moleIcon);;
         }
+
+        setMoleTimer = new Timer(1000, new ActionListener() {
+           public void actionPerformed(ActionEvent e){
+            //remove mole from current line
+            if (currMoleTile != null) {
+                currMoleTile.setIcon(null);
+                currMoleTile=null;
+                
+            }
+
+            //random select another line
+            int num =random.nextInt(9); //0-8
+            JButton tile = board[num];
+
+            //set tile to mole
+            currMoleTile = tile;
+            currMoleTile.setIcon(moleIcon);
+
+
+
+           } 
+        });
+
+        setMoleTimer.start();
+        frame.setVisible(true);
 
 
     }
