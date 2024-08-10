@@ -70,6 +70,7 @@ public class WhacAMole {
                 currMoleTile=null;
                 
             }
+            
 
             //random select another line
             int num =random.nextInt(9); //0-8
@@ -84,7 +85,32 @@ public class WhacAMole {
            } 
         });
 
+
+        setPlantTimer = new Timer(1500, new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+             //remove mole from current line
+             if (currPlantTile != null) {
+                 currPlantTile.setIcon(null);
+                 currPlantTile=null;
+                 
+             }
+             
+ 
+             //random select another line
+             int num =random.nextInt(9); //0-8
+             JButton tile = board[num];
+ 
+             //set tile to mole
+             currPlantTile = tile;
+             currPlantTile.setIcon(plantIcon);
+ 
+ 
+ 
+            } 
+         });
+
         setMoleTimer.start();
+        setPlantTimer.start();
         frame.setVisible(true);
 
 
