@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +26,7 @@ public class WhacAMole {
     Random random = new Random();
     Timer setMoleTimer;
     Timer setPlantTimer;
+    int score=0;
 
 
     WhacAMole() {
@@ -59,7 +61,29 @@ public class WhacAMole {
             JButton tile = new JButton();
             board[i] =tile;
             boardPanel.add(tile);
-            tile.setIcon(moleIcon);;
+            //tile.setIcon(moleIcon);
+
+            tile.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e){
+                    JButton tile =(JButton) e.getSource();
+                     
+                        if(tile== currMoleTile){
+                            score +=10;
+                            textLabel.setText("Score" + Integer.toString(score));
+
+
+                        }
+                        else if(tile==currPlantTile){
+                            textLabel.setText("Game Over :" + Integer.toString(score));
+                            setMoleTimer.stop();
+                            setPlantTimer.stop();
+                            for(int i=0;i<9;i++){
+                                board[i].setEnabled(false);
+                            }
+                        }
+                    
+                }
+            });
         }
 
         setMoleTimer = new Timer(1000, new ActionListener() {
@@ -75,6 +99,9 @@ public class WhacAMole {
             //random select another line
             int num =random.nextInt(9); //0-8
             JButton tile = board[num];
+
+            //if tile is occupied by plant,skip tile for this turn
+            if(currPlantTile==tile) return;
 
             //set tile to mole
             currMoleTile = tile;
@@ -103,6 +130,10 @@ public class WhacAMole {
              //set tile to mole
              currPlantTile = tile;
              currPlantTile.setIcon(plantIcon);
+
+               //if tile is occupied by mole,skip tile for this turn
+            if(currMoleTile==tile) return;
+
  
  
  
